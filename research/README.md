@@ -18,12 +18,14 @@
 | 项目 | 状态 |
 | --- | --- |
 | Windows | 11 22H2 (build 19045) |
-| WSL | **WSL1 模式**（kernel 4.4.0-19041-Microsoft），发行版 Ubuntu 22.04.5 |
+| WSL | 发行版 Ubuntu 22.04.5，**当前 WSL1，转换 WSL2 已就绪（待重启后执行 `wsl --set-version Ubuntu-22.04 2`）** |
 | 硬件 | 12 核 / 15 GiB 内存；WSL 根文件系统余 ~39 GB，E: 盘余 ~218 GB |
 | 工具链（WSL） | git 2.34.1、python3 3.10.12；**无 docker、无 gh、无 ROS** |
 | 代理 | Clash @ 127.0.0.1:7897，GitHub/Google 均可达（见 §5） |
 | Git 身份 | graphic-zhang / zhangxiang941211@gmail.com（WSL 全局已配置） |
-| SSH | ed25519 密钥已存在，**尚未绑定 GitHub**（需加公钥，见 §4） |
+| SSH | ed25519 密钥**已绑定 GitHub**，SSH 经代理认证通过 |
+| GitHub | 已 fork 到 `graphic-zhang/Ultra-Fusion`；`origin`=fork，`upstream`=原仓库；研究提交已推送 |
+| 虚拟机平台 | `dism` 已启用 VirtualMachinePlatform（/norestart），**重启后生效**；WSL2 内核已是最新版 |
 
 > 注意：系统“默认 WSL 版本”显示为 2，但**虚拟机平台功能/BIOS 虚拟化未启用**，所以当前发行版只能以 WSL1 运行。
 
