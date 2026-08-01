@@ -1,0 +1,249 @@
+%YAML:1.0
+force_lidar_degeneracy_after_init: false
+force_visual_degeneracy_after_init: false
+enable_degeneracy_detection: false
+ufestimate_vio_gauge_restore_when_lidar_degenerate: false
+ufestimate_enable_gf_visual_outlier_filter: true
+ufestimate_use_gf_depth_triangulation_contract: false
+ufestimate_use_gf_visual_huber_loss: false
+ufestimate_align_feature_to_lidar_time: true
+use_gf_standalone_vio: false
+uf_vio_factor_backend: gf_7d
+
+gnss_enable: 0
+gnss_raw_enable: false
+gnss_position_enable: true
+gnss_meas_topic: "/ublox_driver/range_meas"
+gnss_position_topic: "/ublox_driver/receiver_lla"
+gnss_ephem_topic: "/ublox_driver/ephem"
+gnss_glo_ephem_topic: "/ublox_driver/glo_ephem"
+gnss_iono_params_topic: "/ublox_driver/iono_params"
+gnss_local_time_diff: 18.0
+gnss_elevation_thres: 30
+gnss_psr_std_thres: 2.0
+gnss_dopp_std_thres: 2.0
+gnss_track_num_thres: 5
+gnss_ddt_sigma: 0.1
+gnss_min_horizontal_velocity: 0.3
+gnss_use_robust_loss: true
+gnss_robust_loss_sigma: 1.0
+gnss_use_pseudorange: true
+gnss_use_doppler: true
+gnss_pseudorange_weight_scale: 1.0
+gnss_doppler_weight_scale: 1.0
+gnss_use_innovation_gate: false
+gnss_innovation_gate_threshold: 10.0
+gnss_raw_use_innovation_gate: false
+gnss_raw_innovation_gate_threshold: 10.0
+gnss_position_use_innovation_gate: true
+gnss_position_innovation_gate_threshold: 5.0
+gnss_marginalization_enable: true
+gnss_fix_first_pose_when_ready: true
+gnss_optimize_anchor: false
+gnss_normalize_epoch_factors: false
+gnss_epoch_target_satellite_count: 4.0
+gnss_min_local_constraint_strength: 1.0
+gnss_position_noise_m: 2.0
+gnss_position_horizontal_noise_m: 5.0
+gnss_position_vertical_noise_m: 20.0
+gnss_position_alignment_min_baseline_m: 8.0
+gnss_use_antenna_extrinsic: false
+gnss_antenna_in_body: [0.0, 0.0, 0.0]
+gnss_iono_default_parameters: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+sensor_freq:
+  wheel: 10
+  imu: 100
+  image: 10
+sphere_filter: 0.2
+use_bounded_map: false
+imu: 1
+wheel: 1
+use_lidar: 1
+depth: 0
+use_image: 1
+use_lidar_reproject: true
+equalize: 0
+depth_threshold: 10
+
+imu_res: 9.805
+output_path: "../../output/m3dgr/uf_m3dgr_ros2_lvwio/"
+
+map_pcd:
+  enable: false
+  output_directory: "/tmp/Ultrafusion"
+  translation_threshold_m: 2.0
+  rotation_threshold_deg: 30.0
+  service_name: "/ultrafusion/generate_map_pcd"
+
+cam0_calib: "color.yaml"
+cam1_calib: "color.yaml"
+
+debug_level: 0
+degeneracy:
+  lidar:
+    voxel_size: 0.1
+    normal_radius: 0.5
+    thread: 0.005
+  visual:
+    min_feature: 100
+    thread: 0.9
+
+multiple_thread: 1
+
+max_cnt: 150
+min_dist: 30
+F_threshold: 1.0
+show_track: 0
+flow_back: 1
+
+max_solver_time: 0.04
+max_num_iterations: 8
+keyframe_parallax: 10.0
+
+estimate_td: 0
+td: 0.00
+TimeSync:
+  accel_scale: 1.0
+  enable_lidar_imu_online_dt: false
+  initial_lidar_to_imu_dt_sec: 0.0
+  max_abs_time_offset_sec: 0.5
+  estimation_window_sec: 12.0
+  min_overlap_sec: 5.0
+  min_update_confidence: 0.6
+  enable_csv_log: false
+  csv_log_dir: "/tmp/timesync_logs"
+
+Initialization:
+  max_bias_norm: 3.5
+
+zupt:
+  enable_imu_zupt: true
+  imu_acc_var_thresh: 0.018
+  imu_gyro_var_thresh: 1.0e-4
+  imu_gyro_mean_norm_thresh: 0.02
+  gravity_abs_error_thresh: 0.20
+  wheel_velocity_thresh: 0.01
+  wheel_yaw_rate_thresh: 0.01
+  require_wheel_stop_if_available: false
+  velocity_sigma: 0.05
+  enter_min_streak: 3
+  exit_min_streak: 2
+  log_transitions: true
+
+noise:
+  laser_plane_noise: 0.0000000153
+  feature_noise: 0.1
+  imu_acc_n: 0.04
+  imu_gyr_n: 0.008
+  imu_acc_w: 2.0e-4
+  imu_gyr_w: 2.0e-5
+
+wheel_gyro_noise_sigma: 0.2
+wheel_velocity_noise_sigma: 0.6
+use_planar_wheel_factor: false
+wheel_thread_init: 2.0
+imu_gravity_init_time: 1.0
+
+ExtrinsicThread:
+  ba_bg_average_num: 25
+  ba_variance: 0.0005
+  bg_variance: 0.000005
+  ba_average: 0.05
+  bg_average: 0.01
+
+preprocess:
+  point_filter_num: 1
+  lidar_type: 7
+  blind: 0.1
+
+common:
+  data_type: 1
+  img0_type: 1
+  img1_type: 1
+  imu_topic: /livox/mid360/imu
+  lid_topic: /livox/mid360/lidar
+  wheel_topic: "/odom"
+  image0_topic: "/camera/color/image_raw/compressed"
+  image1_topic: "/camera/aligned_depth_to_color/image_raw"
+  accumulate_num: 10
+
+mapping:
+  extrinsic_TOL: [ -0.0637422, 1.00364, 0.417493]
+  extrinsic_ROL: [0.867275, 0.0481277, 0.495498,-0.0632962, 0.997899, 0.0138621,-0.49379, -0.0433854, 0.868498]
+  extrinsic_TCL: [ -0.0394255, -0.415872, -0.0192283]
+  extrinsic_RCL: [0.0854415, -0.996341, -0.00205426, 0.520435, 0.046388, -0.85264, 0.849616, 0.0717818, 0.522494]
+  extrinsic_T: [ 0.0114969, 0.0231345, -0.0440133]
+  extrinsic_R: [0.999916, -0.0025826, -0.0126883,0.0026676, 0.999974,0.00668681,0.0126707, -0.00672009, 0.999897]
+
+feature_param:
+  feature_track_min: 4
+
+odometry:
+  plane_eigen_ratio_thresh: 0.12
+  use_sigma_gate: true
+  sigma_gate_k: 3.0
+  enable_low_factor_fallback: true
+  low_factor_fallback_min_added: 600
+  low_factor_fallback_min_keypoints: 30
+  low_factor_fallback_max_keypoints: 1000
+  low_factor_fallback_plane_eigen_ratio_thresh: 1.0
+  low_factor_fallback_max_dist_to_plane_icp: 0.3
+  low_factor_fallback_voxel_neighborhood: 1
+  enable_sequence_profile_adaptation: true
+  sequence_profile_warmup_frames: 1
+  sequence_profile_sampling_rate: 1.0
+  sequence_profile_sparse_keypoint_thresh: 1500
+  sequence_sparse_plane_eigen_ratio_thresh: 1.0
+  sequence_sparse_use_sigma_gate: false
+  sequence_sparse_huber_loss_sigma: 1.0
+  sequence_sparse_max_dist_to_plane_icp: 0.3
+  sequence_sparse_voxel_neighborhood: 1
+  sequence_sparse_sampling_rate: 1.2
+  sequence_sparse_max_num_residuals: 2000
+  refine_icp_each_iter: true
+  icp_convergence_thresh: 0.02
+  use_adaptive_consistency: false
+  svd_degeneracy_thresh: 8.0
+  adaptive_consistency_beta: 0.001
+  huber_loss_sigma: 0.5
+  use_full_constraint_set: false
+  constraint_degeneracy_boost: 0.0
+
+  surf_res: 0.5
+  log_print: false
+  max_num_iteration: 10
+  icpmodel: POINT_TO_PLANE
+  size_voxel_map: 0.5
+  min_distance_points: 0.15
+  max_num_points_in_voxel: 20
+  weight_alpha: 0.9
+  weight_neighborhood: 0.1
+  max_dist_to_plane_icp: 0.2
+  init_num_frames: 20
+  voxel_neighborhood: 2
+  max_number_neighbors: 20
+  threshold_voxel_occupancy: 1
+  estimate_normal_from_neighborhood: true
+  min_number_neighbors: 20
+  power_planarity: 2.0
+  num_closest_neighbors: 1
+
+  sampling_rate: 1.0
+  ratio_of_nonground: 2
+  max_num_residuals: 1200
+  max_distance: 500.0
+  motion_compensation: CONSTANT_VELOCITY
+  beta_location_consistency: 0.0
+  beta_orientation_consistency: 0.0
+  beta_constant_velocity: 0.0
+  beta_small_velocity: 0.0
+  thres_translation_norm: 0.01
+  thres_orientation_norm: 0.1
+
+intensity_only_matching: false
+use_intensity_weight: false
+intensity_weight_alpha: 0.5
+intensity_factor_weight: 0.01
+lidar_elev_min: -7.0
+lidar_elev_max: 52.0

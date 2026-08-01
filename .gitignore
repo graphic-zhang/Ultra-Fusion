@@ -4,3 +4,7 @@
 
 # Research downloads (rosbags etc. are huge)
 research/downloads/
+
+# Run outputs (TUM trajectories, maps, logs)
+output/
+research/logs/

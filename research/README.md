@@ -80,7 +80,15 @@ M3DGR 的 bag 最小序列约 1.5–2 GB（Occlusion01 1.46 GB、Occlusion02 1.4
 - ✅ Docker Engine 安装（docker.io 29.1.3，systemd 托管）
 - ✅ ROS2 运行时镜像 `maotiandocker/ultrafusion-ros2:0.2.0` 拉取完成（digest `ccc3b91f...` 与官方公布的 0.2.1 一致；Docker Hub 直连被墙，走代理；ACR 仓库已改为需要认证、不可用）
 - ✅ Ultra-Fusion ROS2 v0.2.2 `.deb` 已下载并校验 SHA256（GitHub 走代理，3.6 MB）；镜像缺少 `ros-humble-ros2service`、`ros-humble-std-srvs`，容器内 `apt-get install` 补装后安装成功，`uf_node` 可用
-- ⏳ M3DGR Occlusion01 bag 待下载（见「数据准备」）
+- ✅ M3DGR Occlusion01 bag 已下载（阿里云盘 1.46 GB，实际是 7z-SFX 自解压包 `Occlusion01.exe`，已用 `research/scripts/extract_sfx.py` 解出 `Occlusion01.bag`）
+- ✅ ROS1→ROS2 转换完成（`scripts/convert_m3dgr_ros1_to_ros2_common.py` → `research/downloads/data/occlusion01_ros2`，142 s、6 个主题）
+- ✅ **首次运行成功（headless 验证）**：`uf_node`（LVWIO）+ `ros2 bag play` 处理完整序列，**UFEstimate 1360 次调用 0 失败**、雷达匹配 1380 帧、无致命错误
+- ✅ 发现并修复两个数据侧问题（已沉淀为配置/脚本）：
+  1. 转换后雷达时间戳恒定早 100 ms（Livox 头戳 vs bag 录制时间戳）→ 研究版配置 `initial_lidar_to_imu_dt_sec: 0.1`（[research/configs/uf_m3dgr_ros2_lvwio_dt0p1.yaml](research/configs/uf_m3dgr_ros2_lvwio_dt0p1.yaml)）
+  2. bag 开头 ~0.12 s 轮速流未启动，锚定帧缺左边界 → 回放加 `ros2 bag play --start-offset 2`
+- ⬜ 交互式 demo（RViz2 可视化）：`bash research/scripts/run_uf_ros2.sh`
+
+> 注：headless 后台运行下 SIGINT/SIGTERM 未触发 TUM 轨迹保存（该构建的节点只在自身退出路径写盘）；交互式 Ctrl+C 一般正常。需要轨迹时可 `ros2 topic list` 找位姿主题录制，或后续研究。
 - ⬜ 首次运行 demo（`uf_node` + `ros2 bag play` + RViz2）
 
 ## 4. 代码管理与 GitHub 推送
