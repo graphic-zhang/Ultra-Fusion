@@ -23,8 +23,14 @@ CONFIG="${UF_CONFIG:-/workspace/research/configs/uf_m3dgr_ros2_lvwio_dt0p1.yaml}
 START_OFFSET="${START_OFFSET:-2}"
 BAG="${1:-${REPO_ROOT}/research/downloads/data/occlusion01_ros2}"
 
+if ! docker info >/dev/null 2>&1; then
+    echo "Error: Docker daemon is not running. Start it with:" >&2
+    echo "  sudo service docker start   (or: sudo systemctl start docker)" >&2
+    exit 1
+fi
 if ! docker image inspect "${IMG}" >/dev/null 2>&1; then
     echo "Error: image ${IMG} not found. Run: docker pull ${IMG}" >&2
+    echo "If you built it before, rebuild with: bash research/scripts/setup_uf_container.sh" >&2
     exit 1
 fi
 if [ ! -e "${BAG}" ]; then
