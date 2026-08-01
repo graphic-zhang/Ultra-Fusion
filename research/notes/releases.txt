@@ -1,0 +1,6 @@
+  "tag_name": "v0.1.3",
+  "name": "Ultra-Fusion ROS1 Noetic v0.1.3",
+      "name": "ultrafusion_0.1.3_amd64.deb",
+      "browser_download_url": "https://github.com/sjtuyinjie/Ultra-Fusion/releases/download/v0.1.3/ultrafusion_0.1.3_amd64.deb"
+      "name": "ultrafusion_0.1.3_amd64.deb.sha256",
+      "browser_download_url": "https://github.com/sjtuyinjie/Ultra-Fusion/releases/download/v0.1.3/ultrafusion_0.1.3_amd64.deb.sha256"
