@@ -60,7 +60,7 @@ echo "      stream has not started yet (measured data property of M3DGR)."
 echo
 
 exec docker run --rm -it --net=host --ipc=host \
-    -e "DISPLAY=${DISPLAY:-:0}" \
+    -e "DISPLAY=:0" \
     -e QT_X11_NO_MITSHM=1 \
     -e "HTTP_PROXY=http://${PROXY_HOST}:${PROXY_PORT}" \
     -e "HTTPS_PROXY=http://${PROXY_HOST}:${PROXY_PORT}" \
