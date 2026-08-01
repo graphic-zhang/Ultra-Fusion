@@ -8,3 +8,6 @@ research/downloads/
 # Run outputs (TUM trajectories, maps, logs)
 output/
 research/logs/
+
+# Machine guide contains personal info; keep out of public repos by default
+MACHINE_GUIDE.md
