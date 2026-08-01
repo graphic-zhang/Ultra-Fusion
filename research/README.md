@@ -18,14 +18,14 @@
 | 项目 | 状态 |
 | --- | --- |
 | Windows | 11 22H2 (build 19045) |
-| WSL | 发行版 Ubuntu 22.04.5，**当前 WSL1，转换 WSL2 已就绪（待重启后执行 `wsl --set-version Ubuntu-22.04 2`）** |
+| WSL | 发行版 Ubuntu 22.04.5，**已成功转换为 WSL2**（内核 6.18.33.2-microsoft-standard-WSL2，systemd + WSLg 可用） |
 | 硬件 | 12 核 / 15 GiB 内存；WSL 根文件系统余 ~39 GB，E: 盘余 ~218 GB |
 | 工具链（WSL） | git 2.34.1、python3 3.10.12；**无 docker、无 gh、无 ROS** |
 | 代理 | Clash @ 127.0.0.1:7897，GitHub/Google 均可达（见 §5） |
 | Git 身份 | graphic-zhang / zhangxiang941211@gmail.com（WSL 全局已配置） |
 | SSH | ed25519 密钥**已绑定 GitHub**，SSH 经代理认证通过 |
 | GitHub | 已 fork 到 `graphic-zhang/Ultra-Fusion`；`origin`=fork，`upstream`=原仓库；研究提交已推送 |
-| 虚拟机平台 | `dism` 已启用 VirtualMachinePlatform（/norestart），**重启后生效**；WSL2 内核已是最新版 |
+| 虚拟机平台 | VirtualMachinePlatform 已启用，WSL2 转换完成（2026-08-01） |
 
 > 注意：系统“默认 WSL 版本”显示为 2，但**虚拟机平台功能/BIOS 虚拟化未启用**，所以当前发行版只能以 WSL1 运行。
 
@@ -85,8 +85,12 @@ M3DGR 的 bag 最小序列约 1.5–2 GB（Occlusion01 1.46 GB、Occlusion02 1.4
 
 ## 5. 代理速查
 
-交互式终端：`source ~/.bashrc && proxy_on && bash ~/test_proxy.sh`
-非交互/脚本（如本仓库脚本）：`source research/scripts/proxy_env.sh`
+> ⚠️ WSL2 默认是 **NAT 网络**，`127.0.0.1` 不再直达 Windows 上的 Clash；代理主机已改为**自动探测**（WSL2 下取默认网关 IP，如 `172.26.48.1:7897`；WSL1/mirrored 模式回落到 `127.0.0.1:7897`）。
+
+- 交互式终端：`source ~/.bashrc && proxy_on && bash ~/test_proxy.sh`（`.bashrc` 已打补丁，自动探测）
+- 非交互/脚本：`source research/scripts/proxy_env.sh`
+- git push/SSH：走 `~/.ssh/config` + `~/.ssh/ssh_proxy.sh`（已配置，无需手动设变量）
+- 如需手动覆盖：`export PROXY_HOST=127.0.0.1`
 
 ## 6. 关键文件索引
 
