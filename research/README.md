@@ -70,6 +70,19 @@ uf_node /path/to/config.yaml --ros-args -p use_sim_time:=true
 
 M3DGR 的 bag 最小序列约 1.5–2 GB（Occlusion01 1.46 GB、Occlusion02 1.48 GB、Dynamic01 2.14 GB、Dark01 2.21 GB 等），OneDrive / 阿里云盘下载，放 `/media/` 或任意目录后按 §2 运行说明 `rosbag play ... --clock`。完整序列表见 `research/notes/m3dgr_sequences.txt`。
 
+> 实测（2026-08-01）：OneDrive 分享链接被微软按代理节点 IP 拦截（“The request is blocked”），阿里云盘公开 API 需要登录签名。**最省事的做法：用阿里云盘 App/网页下载 Occlusion01**（1.46 GB，国内直连快），存到 `research/downloads/data/`。分享链接：https://www.alipan.com/s/r3P6Bcxj7Tu
+
+## 7. 当前进度（2026-08-01）
+
+- ✅ WSL2 转换完成（内核 6.18.33.2-microsoft-standard-WSL2，systemd + WSLg）
+- ✅ 代理适配 WSL2 NAT（自动探测宿主机 IP，`proxy_env.sh` / `.bashrc` / `~/.ssh/config` 均已更新）
+- ✅ GitHub fork + SSH 推送打通（`origin`=graphic-zhang/Ultra-Fusion）
+- ✅ Docker Engine 安装（docker.io 29.1.3，systemd 托管）
+- ✅ ROS2 运行时镜像 `maotiandocker/ultrafusion-ros2:0.2.0` 拉取完成（digest `ccc3b91f...` 与官方公布的 0.2.1 一致；Docker Hub 直连被墙，走代理；ACR 仓库已改为需要认证、不可用）
+- ✅ Ultra-Fusion ROS2 v0.2.2 `.deb` 已下载并校验 SHA256（GitHub 走代理，3.6 MB）；镜像缺少 `ros-humble-ros2service`、`ros-humble-std-srvs`，容器内 `apt-get install` 补装后安装成功，`uf_node` 可用
+- ⏳ M3DGR Occlusion01 bag 待下载（见「数据准备」）
+- ⬜ 首次运行 demo（`uf_node` + `ros2 bag play` + RViz2）
+
 ## 4. 代码管理与 GitHub 推送
 
 **结论：git 在 WSL 中管理；代码放 Windows 盘 E:\Ultra-Fusion-WS（WSL 中为 /mnt/e/Ultra-Fusion-WS）；VSCode 用 WSL 远程扩展打开。**
